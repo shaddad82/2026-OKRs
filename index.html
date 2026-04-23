@@ -1,0 +1,1334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Operations OKR System · 2026</title>
+<style>
+  :root {
+    --navy:       #1F3864;
+    --dark-blue:  #2F5597;
+    --med-blue:   #4472C4;
+    --light-blue: #BDD7EE;
+    --vlight-blue:#DEEAF1;
+    --white:      #FFFFFF;
+    --off-white:  #F8F9FC;
+    --light-gray: #F2F2F2;
+    --mid-gray:   #D0D5DD;
+    --text-dark:  #1A1A2E;
+    --text-mid:   #4A5568;
+    --green:      #2D7D32;
+    --green-bg:   #E8F5E9;
+    --green-bd:   #A5D6A7;
+    --amber:      #E65100;
+    --amber-bg:   #FFF3E0;
+    --amber-bd:   #FFCC80;
+    --red:        #B71C1C;
+    --red-bg:     #FFEBEE;
+    --red-bd:     #EF9A9A;
+    --gray-text:  #616161;
+    --gray-bg:    #F5F5F5;
+    --gray-bd:    #BDBDBD;
+    --radius:     8px;
+    --shadow:     0 2px 8px rgba(0,0,0,0.10);
+    --shadow-lg:  0 4px 20px rgba(0,0,0,0.14);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    background: var(--off-white);
+    color: var(--text-dark);
+    min-height: 100vh;
+  }
+
+  /* ── Nav ── */
+  nav {
+    background: var(--navy);
+    display: flex;
+    align-items: center;
+    padding: 0 24px;
+    box-shadow: var(--shadow-lg);
+    position: sticky; top: 0; z-index: 100;
+    flex-wrap: wrap; gap: 0;
+  }
+  .nav-brand {
+    color: white;
+    font-size: 16px;
+    font-weight: 700;
+    letter-spacing: 0.3px;
+    padding: 14px 0;
+    margin-right: 24px;
+    white-space: nowrap;
+  }
+  .nav-brand span { color: var(--light-blue); font-weight: 400; }
+  .nav-tabs { display: flex; gap: 2px; flex-wrap: wrap; }
+  .nav-tab {
+    background: transparent;
+    border: none;
+    color: #A8BFDA;
+    font-size: 13px;
+    font-weight: 500;
+    padding: 10px 14px;
+    cursor: pointer;
+    border-radius: 6px 6px 0 0;
+    transition: all .15s;
+    white-space: nowrap;
+  }
+  .nav-tab:hover { color: white; background: rgba(255,255,255,0.08); }
+  .nav-tab.active { color: white; background: var(--dark-blue); border-bottom: 3px solid var(--light-blue); }
+
+  /* ── Pages ── */
+  .page { display: none; padding: 28px 28px 60px; max-width: 1400px; margin: 0 auto; }
+  .page.active { display: block; }
+
+  /* ── Page titles ── */
+  .page-header {
+    background: linear-gradient(135deg, var(--navy) 0%, var(--dark-blue) 100%);
+    border-radius: var(--radius);
+    padding: 20px 28px;
+    margin-bottom: 24px;
+    color: white;
+    box-shadow: var(--shadow);
+  }
+  .page-header h1 { font-size: 22px; font-weight: 700; }
+  .page-header p { font-size: 13px; color: var(--light-blue); margin-top: 4px; }
+
+  /* ── Cards ── */
+  .card {
+    background: white;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    padding: 20px 24px;
+    margin-bottom: 20px;
+  }
+  .card-title {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--navy);
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  /* ── Status pill ── */
+  .status-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+  .status-pill::before { content: "●"; font-size: 8px; }
+  .status-pill.Complete    { background: var(--green-bg); color: var(--green); }
+  .status-pill.On-Track    { background: var(--green-bg); color: #3a7d44; }
+  .status-pill.At-Risk     { background: var(--amber-bg); color: var(--amber); }
+  .status-pill.Off-Track   { background: var(--red-bg);   color: var(--red); }
+  .status-pill.Not-Started { background: var(--gray-bg);  color: var(--gray-text); }
+  .status-pill.empty       { background: var(--gray-bg);  color: var(--gray-text); }
+
+  /* ── OKR quarter section ── */
+  .quarter-section { margin-bottom: 28px; }
+  .quarter-header {
+    background: linear-gradient(90deg, var(--navy) 0%, var(--dark-blue) 100%);
+    border-radius: 8px 8px 0 0;
+    padding: 12px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .quarter-header h3 { color: white; font-size: 15px; font-weight: 700; }
+  .quarter-score-box {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .quarter-score-label { color: var(--light-blue); font-size: 11px; font-weight: 600; }
+  .quarter-score-val {
+    background: rgba(255,255,255,0.15);
+    color: white;
+    font-size: 18px;
+    font-weight: 800;
+    padding: 4px 14px;
+    border-radius: 20px;
+    min-width: 64px;
+    text-align: center;
+  }
+  .weight-used-label {
+    color: rgba(255,255,255,0.6);
+    font-size: 11px;
+    font-weight: 500;
+  }
+  .weight-used-val {
+    font-size: 12px;
+    font-weight: 700;
+    padding: 3px 10px;
+    border-radius: 12px;
+    border: 1px solid rgba(255,255,255,0.25);
+  }
+  .weight-ok   { color: #90EE90; background: rgba(0,128,0,0.2); }
+  .weight-warn { color: #FFD700; background: rgba(200,150,0,0.2); }
+  .weight-over { color: #FF8080; background: rgba(180,0,0,0.3); }
+  .add-okr-btn {
+    background: rgba(255,255,255,0.12);
+    color: var(--light-blue);
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 20px;
+    padding: 4px 14px;
+    font-size: 12px;
+    cursor: pointer;
+    transition: all .15s;
+  }
+  .add-okr-btn:hover { background: rgba(255,255,255,0.22); color: white; }
+
+  .okr-table { width: 100%; border-collapse: collapse; font-size: 13px; table-layout: fixed; }
+  .okr-table th {
+    background: var(--dark-blue);
+    color: white;
+    padding: 8px 12px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: .3px;
+    text-align: left;
+    position: relative;
+    white-space: nowrap;
+    overflow: hidden;
+  }
+  .okr-table th.center { text-align: center; }
+
+  /* ── Column resize handle ── */
+  .col-resize {
+    position: absolute;
+    right: 0; top: 0; bottom: 0;
+    width: 6px;
+    cursor: col-resize;
+    z-index: 5;
+    background: transparent;
+    transition: background .15s;
+  }
+  .col-resize:hover,
+  .col-resize.active { background: rgba(255,255,255,0.35); }
+  .okr-table td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--light-gray);
+    vertical-align: top;
+  }
+  .okr-table tr:last-child td { border-bottom: none; }
+  .okr-table tr.data-row:nth-child(4n+1) td { background: var(--white); }
+  .okr-table tr.data-row:nth-child(4n+3) td { background: var(--vlight-blue); }
+  .okr-table .num-cell  { text-align: center; font-weight: 700; color: var(--navy); width: 36px; vertical-align: middle; }
+  .okr-table .obj-cell  { font-weight: 600; color: var(--text-dark); min-width: 180px; vertical-align: middle; }
+  .okr-table .kr-cell   { color: var(--text-mid); font-size: 12px; min-width: 220px; vertical-align: top; }
+  .okr-table .wt-cell   { text-align: center; width: 90px; vertical-align: middle; }
+  .okr-table .st-cell   { text-align: center; width: 130px; vertical-align: middle; }
+  .okr-table .nt-cell   { font-size: 12px; color: var(--text-mid); min-width: 160px; vertical-align: middle; }
+  .okr-table .act-cell  { text-align: center; width: 50px; vertical-align: middle; }
+
+  /* ── Contenteditable fields (Objective & Notes) ── */
+  .editable-div {
+    min-height: 24px;
+    padding: 5px 6px;
+    font-size: 12px;
+    font-family: inherit;
+    font-weight: inherit;
+    color: inherit;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    outline: none;
+    white-space: pre-wrap;
+    word-break: break-word;
+    line-height: 1.5;
+    transition: border-color .15s, background .15s;
+    cursor: text;
+  }
+  .editable-div:hover { border-color: var(--mid-gray); background: white; }
+  .editable-div:focus { border-color: var(--med-blue); background: white; box-shadow: 0 0 0 2px rgba(68,114,196,0.15); }
+  .editable-div:empty::before { content: attr(data-placeholder); color: #bbb; font-style: italic; pointer-events: none; }
+
+  /* ── Inline editable ── */
+  .editable {
+    background: transparent;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    padding: 4px 6px;
+    font-size: 12px;
+    font-family: inherit;
+    color: inherit;
+    width: 100%;
+    min-height: 32px;
+    overflow: hidden;
+    resize: none;
+    transition: border-color .15s, background .15s;
+    display: block;
+    line-height: 1.5;
+  }
+  .editable:hover  { border-color: var(--mid-gray); background: white; }
+  .editable:focus  { border-color: var(--med-blue); background: white; outline: none; box-shadow: 0 0 0 2px rgba(68,114,196,0.15); }
+
+  /* ── Row resize handle ── */
+  .resize-row td { padding: 0 !important; border: none !important; background: transparent !important; }
+  .resize-grip {
+    height: 6px;
+    cursor: ns-resize;
+    background: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background .15s;
+    position: relative;
+  }
+  .resize-grip:hover { background: rgba(68,114,196,0.12); }
+  .resize-grip::after {
+    content: '';
+    display: block;
+    width: 40px;
+    height: 2px;
+    border-radius: 2px;
+    background: var(--mid-gray);
+    opacity: 0;
+    transition: opacity .15s;
+  }
+  .resize-grip:hover::after { opacity: 1; }
+
+  /* ── Weight input wrapper ── */
+  .wt-wrap {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 3px;
+  }
+  .wt-input {
+    width: 52px;
+    border: 1px solid var(--mid-gray);
+    border-radius: 4px;
+    padding: 4px 6px;
+    font-size: 12px;
+    font-weight: 600;
+    text-align: right;
+    font-family: inherit;
+    transition: border-color .15s;
+  }
+  .wt-input:focus { border-color: var(--med-blue); outline: none; box-shadow: 0 0 0 2px rgba(68,114,196,0.12); }
+  .wt-input.over  { border-color: var(--red); background: var(--red-bg); }
+  .wt-pct { font-size: 11px; font-weight: 600; color: var(--text-mid); }
+
+  select.status-select {
+    background: transparent;
+    border: 1px solid transparent;
+    border-radius: 20px;
+    padding: 4px 24px 4px 10px;
+    font-size: 11px;
+    font-weight: 600;
+    font-family: inherit;
+    cursor: pointer;
+    appearance: none;
+    -webkit-appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%23666'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 8px center;
+    transition: all .15s;
+  }
+  select.status-select:focus { outline: none; }
+  select.status-select.Complete    { background-color: var(--green-bg); color: var(--green); border-color: var(--green-bd); }
+  select.status-select.On-Track    { background-color: var(--green-bg); color: #3a7d44; border-color: var(--green-bd); }
+  select.status-select.At-Risk     { background-color: var(--amber-bg); color: var(--amber); border-color: var(--amber-bd); }
+  select.status-select.Off-Track   { background-color: var(--red-bg);   color: var(--red); border-color: var(--red-bd); }
+  select.status-select.Not-Started { background-color: var(--gray-bg);  color: var(--gray-text); border-color: var(--gray-bd); }
+  select.status-select.empty       { background-color: var(--gray-bg);  color: var(--gray-text); border-color: var(--gray-bd); }
+
+  .del-btn {
+    background: none;
+    border: none;
+    color: var(--mid-gray);
+    cursor: pointer;
+    font-size: 16px;
+    padding: 4px;
+    border-radius: 4px;
+    transition: color .15s;
+  }
+  .del-btn:hover { color: var(--red); }
+
+  /* ── Check-ins ── */
+  .checkin-form-card { border-left: 4px solid var(--med-blue); }
+  .form-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 12px; margin-bottom: 16px; }
+  .form-group { display: flex; flex-direction: column; gap: 5px; }
+  .form-group label { font-size: 11px; font-weight: 600; color: var(--text-mid); text-transform: uppercase; letter-spacing: .4px; }
+  .form-control {
+    border: 1px solid var(--mid-gray);
+    border-radius: 6px;
+    padding: 8px 10px;
+    font-size: 13px;
+    font-family: inherit;
+    background: white;
+    transition: border-color .15s, box-shadow .15s;
+  }
+  .form-control:focus { border-color: var(--med-blue); box-shadow: 0 0 0 3px rgba(68,114,196,0.12); outline: none; }
+  textarea.form-control { resize: vertical; min-height: 72px; }
+  .form-wide { grid-column: 1 / -1; }
+
+  .btn {
+    padding: 9px 20px;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+    transition: all .15s;
+  }
+  .btn-primary   { background: var(--med-blue); color: white; }
+  .btn-primary:hover { background: var(--dark-blue); }
+  .btn-secondary { background: white; color: var(--text-mid); border: 1px solid var(--mid-gray); }
+  .btn-secondary:hover { background: var(--light-gray); }
+
+  .checkin-table { width: 100%; border-collapse: collapse; font-size: 12px; }
+  .checkin-table th { background: var(--navy); color: white; padding: 9px 12px; font-size: 11px; font-weight: 600; letter-spacing: .3px; text-align: left; }
+  .checkin-table td { padding: 10px 12px; border-bottom: 1px solid var(--light-gray); vertical-align: top; }
+  .checkin-table tr:last-child td { border-bottom: none; }
+  .checkin-table tr:nth-child(even) td { background: #F8FBFF; }
+
+  /* ── Status Guide ── */
+  .guide-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  .guide-table th { background: var(--navy); color: white; padding: 10px 14px; font-weight: 600; font-size: 12px; }
+  .guide-table td { padding: 10px 14px; border: 1px solid var(--mid-gray); vertical-align: top; font-size: 12px; line-height: 1.5; }
+  .guide-table tr td:first-child { font-weight: 700; background: var(--vlight-blue); color: var(--navy); }
+  .td-green { background: var(--green-bg) !important; }
+  .td-amber { background: var(--amber-bg) !important; }
+  .td-red   { background: var(--red-bg) !important; }
+  .td-gray  { background: var(--gray-bg) !important; }
+
+  /* ── Legend ── */
+  .legend-row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+  .legend-chip { padding: 5px 14px; border-radius: 20px; font-size: 11px; font-weight: 600; }
+  .legend-chip.Complete    { background: var(--green-bg); color: var(--green); border: 1px solid var(--green-bd); }
+  .legend-chip.On-Track    { background: var(--green-bg); color: #3a7d44; border: 1px solid var(--green-bd); }
+  .legend-chip.At-Risk     { background: var(--amber-bg); color: var(--amber); border: 1px solid var(--amber-bd); }
+  .legend-chip.Off-Track   { background: var(--red-bg);   color: var(--red); border: 1px solid var(--red-bd); }
+  .legend-chip.Not-Started { background: var(--gray-bg);  color: var(--gray-text); border: 1px solid var(--gray-bd); }
+
+  /* ── Misc ── */
+  .saved-badge {
+    position: fixed; bottom: 20px; right: 20px;
+    background: var(--green-bg); color: var(--green);
+    border: 1px solid var(--green-bd);
+    padding: 8px 16px; border-radius: 20px;
+    font-size: 12px; font-weight: 600;
+    box-shadow: var(--shadow);
+    opacity: 0; transform: translateY(8px);
+    transition: opacity .3s, transform .3s;
+    pointer-events: none;
+  }
+  .saved-badge.show { opacity: 1; transform: translateY(0); }
+  .empty-state { text-align: center; padding: 40px; color: var(--text-mid); font-size: 13px; }
+  .toggle-form-btn { margin-bottom: 16px; }
+  .form-collapsed { display: none; }
+
+  @media (max-width: 768px) {
+    .page { padding: 16px; }
+    nav { padding: 0 12px; }
+    .form-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-brand">Operations OKRs <span>· 2026</span></div>
+  <span id="connStatus" style="font-size:11px;font-weight:600;padding:4px 12px;border-radius:12px;margin-right:12px;transition:all .3s">⏳ Connecting…</span>
+  <div class="nav-tabs" id="navTabs">
+    <button class="nav-tab active" onclick="showPage('checkins')">Check-ins</button>
+    <button class="nav-tab" onclick="showPage('leader-Tamzid')">Tamzid</button>
+    <button class="nav-tab" onclick="showPage('leader-Tylor')">Tylor</button>
+    <button class="nav-tab" onclick="showPage('leader-Karen')">Karen</button>
+    <button class="nav-tab" onclick="showPage('leader-Arnold')">Arnold</button>
+    <button class="nav-tab" onclick="showPage('leader-Jared')">Jared</button>
+    <button class="nav-tab" onclick="showPage('guide')">Status Guide</button>
+  </div>
+</nav>
+
+<!-- ── Check-ins ── -->
+<div id="page-checkins" class="page active">
+  <div class="page-header">
+    <h1>Check-in Tracker</h1>
+    <p>Log every OKR review and 1:1 touch base · One row per meeting</p>
+  </div>
+  <div class="card checkin-form-card">
+    <div class="card-title">➕ New Check-in</div>
+    <button class="btn btn-secondary toggle-form-btn" id="toggleFormBtn" onclick="toggleCheckinForm()">Show Form</button>
+    <div id="checkinFormWrap" class="form-collapsed">
+      <div class="form-grid">
+        <div class="form-group">
+          <label>Date</label>
+          <input type="date" class="form-control" id="ci-date" value="2026-04-14">
+        </div>
+        <div class="form-group">
+          <label>Leader</label>
+          <select class="form-control" id="ci-leader">
+            <option>Tamzid</option><option>Tylor</option><option>Karen</option>
+            <option>Arnold</option><option>Jared</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Quarter</label>
+          <select class="form-control" id="ci-quarter">
+            <option>Q1</option><option selected>Q2</option><option>Q3</option><option>Q4</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Meeting Type</label>
+          <select class="form-control" id="ci-type">
+            <option>1:1 Review</option><option>Team Review</option><option>Skip Level</option><option>Ad Hoc</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Overall Status</label>
+          <select class="form-control" id="ci-status">
+            <option>On Track</option><option>At Risk</option><option>Off Track</option><option>Complete</option>
+          </select>
+        </div>
+        <div class="form-group form-wide">
+          <label>Progress / Key Updates</label>
+          <textarea class="form-control" id="ci-updates" placeholder="What progress has been made since last check-in?"></textarea>
+        </div>
+        <div class="form-group">
+          <label>Wins &amp; Highlights</label>
+          <textarea class="form-control" id="ci-wins" placeholder="Notable achievements..."></textarea>
+        </div>
+        <div class="form-group">
+          <label>Risks &amp; Blockers</label>
+          <textarea class="form-control" id="ci-risks" placeholder="What could derail progress?"></textarea>
+        </div>
+        <div class="form-group form-wide">
+          <label>Action Items</label>
+          <textarea class="form-control" id="ci-actions" placeholder="Specific actions to address risks or move OKRs forward..."></textarea>
+        </div>
+        <div class="form-group">
+          <label>Action Owner</label>
+          <input type="text" class="form-control" id="ci-owner" placeholder="Who is responsible?">
+        </div>
+        <div class="form-group">
+          <label>Due Date</label>
+          <input type="date" class="form-control" id="ci-due">
+        </div>
+      </div>
+      <div style="display:flex;gap:8px;">
+        <button class="btn btn-primary" onclick="saveCheckin()">Save Check-in</button>
+        <button class="btn btn-secondary" onclick="toggleCheckinForm()">Cancel</button>
+      </div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-title">📋 Check-in History</div>
+    <div style="overflow-x:auto">
+      <table class="checkin-table" id="checkinTable">
+        <thead>
+          <tr>
+            <th>Date</th><th>Leader</th><th>Q</th><th>Type</th><th>Status</th>
+            <th>Key Updates</th><th>Wins</th><th>Risks / Blockers</th>
+            <th>Action Items</th><th>Owner</th><th>Due</th><th></th>
+          </tr>
+        </thead>
+        <tbody id="checkinTableBody"></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- ── Leader pages (built by JS) ── -->
+<div id="page-leader-Tamzid" class="page"></div>
+<div id="page-leader-Tylor"  class="page"></div>
+<div id="page-leader-Karen"  class="page"></div>
+<div id="page-leader-Arnold" class="page"></div>
+<div id="page-leader-Jared"  class="page"></div>
+
+<!-- ── Status Guide ── -->
+<div id="page-guide" class="page">
+  <div class="page-header">
+    <h1>Status Guide &amp; Scoring Reference</h1>
+    <p>Reference criteria for assigning OKR status values</p>
+  </div>
+  <div class="card">
+    <div style="overflow-x:auto">
+      <table class="guide-table">
+        <thead>
+          <tr>
+            <th style="min-width:160px">Category</th>
+            <th class="td-green" style="min-width:180px">On Track 🟢</th>
+            <th class="td-amber" style="min-width:180px">At Risk 🟡</th>
+            <th class="td-red"   style="min-width:180px">Off Track 🔴</th>
+            <th class="td-gray"  style="min-width:130px">Not Started / N/A</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Project (Overall)</td>
+            <td class="td-green">On time and on budget; all major milestones on track</td>
+            <td class="td-amber">2+ milestones at risk; likelihood of timeline/budget impact if not mitigated</td>
+            <td class="td-red">1+ major milestones missed with no risk mitigation plan; timeline and budget at risk</td>
+            <td class="td-gray">Not applicable</td>
+          </tr>
+          <tr>
+            <td>Objectives &amp; Team Alignment</td>
+            <td class="td-green">Key objectives defined; stakeholders engaged and agree to assigned tasks</td>
+            <td class="td-amber">Objectives defined but stakeholders are neutral or don't fully agree</td>
+            <td class="td-red">Objectives not defined and/or stakeholders do not agree or participate</td>
+            <td class="td-gray">Not applicable</td>
+          </tr>
+          <tr>
+            <td>Resources</td>
+            <td class="td-green">Adequately staffed; team dedicated to completing assigned tasks</td>
+            <td class="td-amber">Understaffed and/or team lacks full capacity, creating late task patterns</td>
+            <td class="td-red">Understaffed; no capacity — adverse impact on schedule, quality, and/or budget</td>
+            <td class="td-gray">Not applicable</td>
+          </tr>
+          <tr>
+            <td>Schedule</td>
+            <td class="td-green">On schedule</td>
+            <td class="td-amber">Behind schedule; critical path not impacted</td>
+            <td class="td-red">Behind schedule; critical path adversely impacted</td>
+            <td class="td-gray">Not applicable</td>
+          </tr>
+          <tr>
+            <td>Cost</td>
+            <td class="td-green">On budget</td>
+            <td class="td-amber">Mitigation plan may cause budget overage</td>
+            <td class="td-red">No mitigation plan or plan will cause budget overage</td>
+            <td class="td-gray">Not applicable</td>
+          </tr>
+          <tr>
+            <td>Benefit</td>
+            <td class="td-green">Key benefits defined, data identified, formula approved, report requirements designed &amp; implemented prior to go-live</td>
+            <td class="td-amber">Plan to identify &amp; measure benefits is partial; may not be ready before go-live</td>
+            <td class="td-red">No key measurements in place and no risk mitigation plan</td>
+            <td class="td-gray">Not applicable</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-title">📝 Scoring Notes</div>
+    <ul style="padding-left:18px;font-size:13px;line-height:2;color:var(--text-mid);">
+      <li>All criteria "On Track" → overall status = <strong>On Track</strong></li>
+      <li>Only one criteria "At Risk" → overall status = <strong>On Track</strong></li>
+      <li>Two or more criteria "At Risk" → overall status = <strong>At Risk</strong></li>
+      <li>Any criteria "Off Track" → overall status = <strong>Off Track</strong></li>
+      <li>If "Off Track", status remains Off Track until a resolution is defined and agreed upon. Only then can status move back to On Track.</li>
+      <li>Notes should explain why an item is not On Track and how it can recover.</li>
+      <li>Every column should be filled out. Date columns should have actual dates, not quarter/month estimates.</li>
+    </ul>
+  </div>
+  <div class="card">
+    <div class="card-title">🔢 Score Values</div>
+    <div class="legend-row">
+      <span class="legend-chip Complete">Complete = 100%</span>
+      <span class="legend-chip On-Track">On Track = 75%</span>
+      <span class="legend-chip At-Risk">At Risk = 50%</span>
+      <span class="legend-chip Off-Track">Off Track = 25%</span>
+      <span class="legend-chip Not-Started">Not Started = 0%</span>
+    </div>
+  </div>
+</div>
+
+<div class="saved-badge" id="savedBadge">✓ Saved</div>
+
+<script>
+// ═══════════════════════════════════════════════════════════════
+// DATA  (weights stored as integers 0–100, representing %)
+// ═══════════════════════════════════════════════════════════════
+const LEADERS = ["Tamzid","Tylor","Karen","Arnold","Jared"];
+const STATUS_OPTS = ["","Not Started","On Track","At Risk","Off Track","Complete"];
+
+const DEFAULT_DATA = {
+  leaders: {
+    Tamzid: {
+      Q1: [
+        {id:1, obj:"Growth Enablement - Launch (4) MTA Routes",
+         kr:"* Q17, Q27 Launched in Feb 26\n* Q60, B12 launched in Mar 26\n* 47 Bus installs completed\n* Route configured/annotated and approved by client\n* Pre/post go live checklist meeting held",
+         wt:30, status:"Complete", notes:"04/02: All Launched on time"},
+        {id:2, obj:"Growth Enablement - Launch PPA Trolley Enforcement",
+         kr:"* Secure Schedule for installation on 25 remaining trolleys\n* Launch PPA trolley enforcement for Street Car Blocking and Street Car Stop zone with 30 day warning\n* Complete end to end testing with Duncan",
+         wt:30, status:"Complete", notes:"04/02: All installs completed by Early March."},
+        {id:3, obj:"Growth Enablement - Launch PPA Residential Parking Pilot",
+         kr:"* Finalize Business Rules with Client\n* Ensure pilot district route is configured, annotated and finalized with Client\n* Successfully install Hayden AI equipment on (2) test vehicles\n* Launch pilot for customer testing and analysis",
+         wt:20, status:"On Track", notes:"04/02: Growth has managed this. Launching 04/06."},
+        {id:4, obj:"Process Maturity - Introduce Human Review to MTA Event Capture Process",
+         kr:"* Receive Approval for Hayden AI to start performing Human Review as a QC measure\n* Coordinate and finalize business rules for Hayden AI event reviewers",
+         wt:20, status:"Complete", notes:"04/02: Launched, on hold due to reporting issue (technical). Once fixed, resumes"},
+        {id:5, obj:"Growth Enablement - Release of Retention",
+         kr:"* Secure 100% compliance for Event Capture\n* Secure 100% compliance for Event Processing\n* Obtain Approval for Bus Stop & Double Parking Systems Acceptance Testing",
+         wt:null, status:"At Risk", notes:"04/02: Event Capture informal compliance received. At risk due to Event Processing."},
+      ],
+      Q2: [
+        {id:1, obj:"Process Maturity – Integrate PM Organization",
+         kr:"* Align with Growth team on overall strategy\n* Conduct 1:1 meetings with team members\n* Roll out standardized PM operating processes",
+         wt:20, status:"Not Started", notes:""},
+        {id:2, obj:"Tool Maturity – Leverage NYC Open Data & GTFS for Proactive Bus Lane Detection",
+         kr:"* Utilize NYC Open Data and GTFS datasets to detect changes in bus stops and lanes\n* Compare against KML data to identify discrepancies\n* Develop automated reporting workflows",
+         wt:20, status:"On Track", notes:""},
+        {id:3, obj:"Process Maturity – Operationalize Route Data Metrics into Route Change Workflow",
+         kr:"* Establish regular cadence for reviewing Tableau dashboards\n* Translate insights into automated reporting workflows",
+         wt:20, status:"On Track", notes:""},
+        {id:4, obj:"Growth Enablement - Release of Retention",
+         kr:"* Delineate the Event Processing RVTM from retention release requirements\n* Achieve full SAT approval for Bus Stop and Double Parking\n* Ensure full compliance with Event Capture requirements\n* Achieve complete cybersecurity compliance",
+         wt:25, status:"Not Started", notes:""},
+        {id:5, obj:"Growth Enablement - Q2 Route Launches",
+         kr:"* Launch B15 & M31 by April 13, 2026\n* Launch M7 & Q10 by May 11, 2026\n* Launch Q8 by June 15, 2026",
+         wt:15, status:"On Track", notes:""},
+      ],
+      Q3: [{id:1,obj:"",kr:"",wt:null,status:"",notes:""},{id:2,obj:"",kr:"",wt:null,status:"",notes:""},{id:3,obj:"",kr:"",wt:null,status:"",notes:""},{id:4,obj:"",kr:"",wt:null,status:"",notes:""}],
+      Q4: [{id:1,obj:"",kr:"",wt:null,status:"",notes:""},{id:2,obj:"",kr:"",wt:null,status:"",notes:""},{id:3,obj:"",kr:"",wt:null,status:"",notes:""},{id:4,obj:"",kr:"",wt:null,status:"",notes:""}],
+    },
+    Tylor: {
+      Q1: [
+        {id:1, obj:"Tool Maturity - Eliminate Waste and Streamline Workflow",
+         kr:"* Complete configuration of Pronto/Jira → Google Sheets integrations by Feb 6th\n* Complete Google Sheets → Smartsheets integrations by March 15th\n* Phase 2 planning and outline by March 31st",
+         wt:null, status:"", notes:""},
+        {id:2, obj:"Process Maturity - Oncall Process for Repairs/Installs",
+         kr:"* Identify 3 lower level repairs and create SOPs by 2/15\n* Partner with ICOE to flow down processes to vendors by March 31st",
+         wt:null, status:"", notes:""},
+        {id:3, obj:"Field Services KPI Maturation",
+         kr:"* Migrate Field services work to Field Services project in Jira by 2/15\n* Establish Roadmap with Jo on Portal alerting updates 2/15\n* Baseline Field Services SLA/Ticket Quality KPIs through 3/31",
+         wt:null, status:"On Track", notes:""},
+        {id:4, obj:"Process Maturity - Homography Improvement",
+         kr:"* Create bus install/repair sign-off form including homography golden standard by 2/15\n* Partner with perception to take over Homography auto calibration script by 2/28\n* Identify and start implementation for homography alerting (grafana) by 3/31",
+         wt:null, status:"On Track", notes:""},
+      ],
+      Q2: [{id:1,obj:"",kr:"",wt:null,status:"",notes:""},{id:2,obj:"",kr:"",wt:null,status:"",notes:""},{id:3,obj:"",kr:"",wt:null,status:"",notes:""},{id:4,obj:"",kr:"",wt:null,status:"",notes:""}],
+      Q3: [{id:1,obj:"",kr:"",wt:null,status:"",notes:""},{id:2,obj:"",kr:"",wt:null,status:"",notes:""},{id:3,obj:"",kr:"",wt:null,status:"",notes:""},{id:4,obj:"",kr:"",wt:null,status:"",notes:""}],
+      Q4: [{id:1,obj:"",kr:"",wt:null,status:"",notes:""},{id:2,obj:"",kr:"",wt:null,status:"",notes:""},{id:3,obj:"",kr:"",wt:null,status:"",notes:""},{id:4,obj:"",kr:"",wt:null,status:"",notes:""}],
+    },
+    Karen: {
+      Q1: [
+        {id:1, obj:"Growth Enablement",
+         kr:"* Ship 234 bus kits from Omega by March 31st\n* Manage Custom Cable and Mechanical Procurement\n* Lead/Direct Omega on Bus Kitting schedule and inventory needs",
+         wt:38, status:"Complete", notes:"* Shipped all MTA Bus Kits on time\n* Tested and onboarded new Cable Mfr (Loombotics)"},
+        {id:2, obj:"Build Foundation for Scalable International Operations",
+         kr:"* Complete RFQ and carrier selection for international logistics (EU, UK, CA) by Feb 27th\n* Complete RFQ and custom broker selection by Feb 27th\n* Partner with Finance to develop Int'l Accounting & Transportation process",
+         wt:24, status:"On Track", notes:"* Finance still completing Intl Accounting process\n* Partnered with Finance, PWC and Azeat\n* Completed RFQ for 3 Carriers"},
+        {id:3, obj:"Gen3 Camera Readiness",
+         kr:"* Partner with Eng/ICOE on optimal Mechanical design\n* Partner with Eng and Suppliers on updated Camera Design improvements\n* Direct quantity and production timelines\n* Partner with Raj to validate new Gen3 HTS code for $1M tariff savings",
+         wt:38, status:"At Risk", notes:"* New Gen3 BOM not completed by Eng til 2nd week of March\n* Procured new components to support 1200 Assy rework\n* Actual rework to be done in Q2"},
+        {id:4, obj:"Build Foundation for UK Operations",
+         kr:"* Build process to supply and kit initial 50 installs for UK\n* Ship 50 sets of inventory to new UK DC\n* Visit, set up and organize new UK DC Location",
+         wt:null, status:"Complete", notes:"* Shipped 30 units of each standard part to new UK DC\n* ICOE team set up DC, audited inventory"},
+      ],
+      Q2: [
+        {id:1, obj:"Gen3 Camera Readiness",
+         kr:"* Manage Supplier on order to ensure timely delivery\n* Own and Drive the rework schedule at SF office\n* Create structured process to move inventory around the network\n* Partner with Eng & Omega to train on Gen3 Assy needs\n* Goal to complete all rework by EOM May",
+         wt:null, status:"On Track", notes:""},
+        {id:2, obj:"Growth Enablement",
+         kr:"* Ship 300 bus kits from Omega by June 30th\n* Manage Custom Cable and Mechanical Procurement\n* Lead/Direct Omega on Bus Kitting schedule\n* Create schedule with greater reliance on LTL vs Sprinter Van",
+         wt:null, status:"On Track", notes:""},
+        {id:3, obj:"Build Foundation for Scalable International Operations",
+         kr:"* Onboard Flexport as new Logistical Carrier and Customs Broker\n* Document new Intl process for UK/EU\n* Gain education on Duty Drawback eligibility\n* Transition all DHL shipments to Flexport",
+         wt:null, status:"On Track", notes:""},
+        {id:4, obj:"Process Maturity - Supply Chain Evolution",
+         kr:"* Onboard and train new Inventory Manager - Matt Salcedo\n* Evolve Supply Chain Roles and Responsibilities\n* Transition from Execution to Strategic Data Driven Decisions",
+         wt:null, status:"On Track", notes:""},
+      ],
+      Q3: [{id:1,obj:"",kr:"",wt:null,status:"",notes:""},{id:2,obj:"",kr:"",wt:null,status:"",notes:""},{id:3,obj:"",kr:"",wt:null,status:"",notes:""},{id:4,obj:"",kr:"",wt:null,status:"",notes:""}],
+      Q4: [{id:1,obj:"",kr:"",wt:null,status:"",notes:""},{id:2,obj:"",kr:"",wt:null,status:"",notes:""},{id:3,obj:"",kr:"",wt:null,status:"",notes:""},{id:4,obj:"",kr:"",wt:null,status:"",notes:""}],
+    },
+    Arnold: {
+      Q1: [{id:1,obj:"",kr:"",wt:null,status:"",notes:""},{id:2,obj:"",kr:"",wt:null,status:"",notes:""},{id:3,obj:"",kr:"",wt:null,status:"",notes:""},{id:4,obj:"",kr:"",wt:null,status:"",notes:""}],
+      Q2: [{id:1,obj:"",kr:"",wt:null,status:"",notes:""},{id:2,obj:"",kr:"",wt:null,status:"",notes:""},{id:3,obj:"",kr:"",wt:null,status:"",notes:""},{id:4,obj:"",kr:"",wt:null,status:"",notes:""}],
+      Q3: [{id:1,obj:"",kr:"",wt:null,status:"",notes:""},{id:2,obj:"",kr:"",wt:null,status:"",notes:""},{id:3,obj:"",kr:"",wt:null,status:"",notes:""},{id:4,obj:"",kr:"",wt:null,status:"",notes:""}],
+      Q4: [{id:1,obj:"",kr:"",wt:null,status:"",notes:""},{id:2,obj:"",kr:"",wt:null,status:"",notes:""},{id:3,obj:"",kr:"",wt:null,status:"",notes:""},{id:4,obj:"",kr:"",wt:null,status:"",notes:""}],
+    },
+    Jared: {
+      Q1: [
+        {id:1, obj:"Subcontractor Training",
+         kr:"* Implement the VR installation training module to internal stakeholders and subcontractors\n* Work through phase 2 - maintenance program",
+         wt:null, status:"", notes:""},
+        {id:2, obj:"UK Standup",
+         kr:"* Building a process and standing up operations for:\n  - Supply chain support\n  - Kitting resources\n  - Installation rollout with focus on speed to market",
+         wt:null, status:"", notes:""},
+        {id:3, obj:"Growth Enablement Support",
+         kr:"* Support shipping 234 bus kits from Omega by March 31st\n* Support Custom Cable and Mechanical Procurement\n* Support Omega on Bus Kitting schedule and inventory needs",
+         wt:null, status:"", notes:""},
+        {id:4, obj:"Tool Maturity - Eliminate Waste and Streamline Workflow",
+         kr:"* Support configuration of Pronto/Jira → Google Sheets integrations by Feb 6th\n* Support Google Sheets → Smartsheets integrations by March 15th\n* Phase 2 planning and outline by March 31st",
+         wt:null, status:"", notes:""},
+      ],
+      Q2: [
+        {id:1, obj:"Implement the VR Training Program (Phase 2)",
+         kr:"Implement the maintenance training module to internal stakeholders and subcontractors around the world",
+         wt:null, status:"", notes:""},
+        {id:2, obj:"UK Standup",
+         kr:"* Building a process and standing up operations for:\n  - Supply chain support\n  - Kitting resources\n  - Installation rollout with focus on speed to market",
+         wt:null, status:"", notes:""},
+        {id:3,obj:"",kr:"",wt:null,status:"",notes:""},{id:4,obj:"",kr:"",wt:null,status:"",notes:""},
+      ],
+      Q3: [{id:1,obj:"",kr:"",wt:null,status:"",notes:""},{id:2,obj:"",kr:"",wt:null,status:"",notes:""},{id:3,obj:"",kr:"",wt:null,status:"",notes:""},{id:4,obj:"",kr:"",wt:null,status:"",notes:""}],
+      Q4: [{id:1,obj:"",kr:"",wt:null,status:"",notes:""},{id:2,obj:"",kr:"",wt:null,status:"",notes:""},{id:3,obj:"",kr:"",wt:null,status:"",notes:""},{id:4,obj:"",kr:"",wt:null,status:"",notes:""}],
+    },
+  },
+  checkins: [
+    {id:1, date:"2026-04-14", leader:"Tamzid", quarter:"Q2", type:"1:1 Review", status:"On Track",
+     updates:"Q1 complete. Q2 Route launches in progress. B15/M31 on track for Apr 13.",
+     wins:"All Q1 route launches completed on time. PPA Trolley installs done.",
+     risks:"Retention release at risk due to Event Processing compliance.",
+     actions:"Follow up with Verra on Event Processing RTVM status", owner:"Tamzid", due:"2026-04-21"},
+    {id:2, date:"2026-04-14", leader:"Karen", quarter:"Q2", type:"1:1 Review", status:"On Track",
+     updates:"Gen3 rework starting Q2. Growth kitting on track for 300 kits by June 30.",
+     wins:"All Q1 MTA bus kits shipped on time. UK DC set up successfully.",
+     risks:"Gen3 rework timeline tight - monitor closely through May.",
+     actions:"Confirm Gen3 rework completion date with Omega", owner:"Karen", due:"2026-04-21"},
+  ]
+};
+
+// ═══════════════════════════════════════════════════════════════
+// ★ GOOGLE SHEETS CONFIG
+// Paste your Apps Script Web App URL below after deploying.
+// Leave as-is to run in local-only mode.
+// ═══════════════════════════════════════════════════════════════
+const SHEETS_API_URL = 'https://script.google.com/macros/s/AKfycbz1xuM7xJrGnGVXqkv34Mstd22MQAYvgQ0HNMbbnsoaakV7kpA4vUGdb9rRx78pZFwm/exec';
+
+const USE_SHEETS = SHEETS_API_URL && SHEETS_API_URL !== 'PASTE_YOUR_APPS_SCRIPT_URL_HERE';
+
+// ═══════════════════════════════════════════════════════════════
+// STATE
+// ═══════════════════════════════════════════════════════════════
+let state = JSON.parse(JSON.stringify(DEFAULT_DATA));
+
+// Merge loaded state with DEFAULT_DATA so missing leaders/quarters never break the UI
+function mergeWithDefaults(loaded) {
+  const result = JSON.parse(JSON.stringify(DEFAULT_DATA));
+  if (!loaded || typeof loaded !== 'object') return result;
+  if (Array.isArray(loaded.checkins)) result.checkins = loaded.checkins;
+  if (loaded.leaders && typeof loaded.leaders === 'object') {
+    LEADERS.forEach(leader => {
+      if (loaded.leaders[leader] && typeof loaded.leaders[leader] === 'object') {
+        ['Q1','Q2','Q3','Q4'].forEach(q => {
+          const qdata = loaded.leaders[leader][q];
+          if (Array.isArray(qdata) && qdata.length > 0) {
+            result.leaders[leader][q] = qdata;
+          }
+        });
+      }
+    });
+  }
+  return result;
+}
+
+async function loadData() {
+  setConnStatus('loading');
+  if (USE_SHEETS) {
+    try {
+      const resp = await fetch(SHEETS_API_URL + '?t=' + Date.now());
+      const text = await resp.text();
+      JSON.parse(text); // validate it's real JSON — throws if not
+      setConnStatus('cloud'); // we're connected regardless of whether data exists
+      if (text && text.trim() !== '{}' && text.trim() !== '') {
+        state = mergeWithDefaults(JSON.parse(text));
+        localStorage.setItem('okr_2026_v2', text);
+      } else {
+        // Connected but sheet is empty — load local cache if available
+        const saved = localStorage.getItem('okr_2026_v2');
+        if (saved) state = mergeWithDefaults(JSON.parse(saved));
+      }
+      return;
+    } catch(e) {
+      console.warn('Google Sheets load failed, falling back to local cache:', e);
+    }
+  }
+  // Fallback: local cache
+  try {
+    const saved = localStorage.getItem('okr_2026_v2');
+    if (saved) state = mergeWithDefaults(JSON.parse(saved));
+  } catch(e) {}
+  setConnStatus(USE_SHEETS ? 'offline' : 'local');
+}
+
+let saveTimer = null;
+function persist() {
+  clearTimeout(saveTimer);
+  saveTimer = setTimeout(async () => {
+    const json = JSON.stringify(state);
+    localStorage.setItem('okr_2026_v2', json);
+    if (USE_SHEETS) {
+      setConnStatus('saving');
+      try {
+        await fetch(SHEETS_API_URL, {
+          method: 'POST',
+          body: json,
+          headers: { 'Content-Type': 'text/plain' }
+        });
+        setConnStatus('cloud');
+        showSavedBadge('☁️ Saved to Google Sheets');
+      } catch(e) {
+        setConnStatus('offline');
+        showSavedBadge('⚠️ Saved locally (Google Sheets unreachable)');
+      }
+    } else {
+      showSavedBadge('✓ Saved');
+    }
+  }, 700);
+}
+
+function setConnStatus(state) {
+  const el = document.getElementById('connStatus');
+  if (!el) return;
+  const map = {
+    loading: ['⏳ Connecting…',      '#A8BFDA', 'transparent'],
+    cloud:   ['☁️ Google Sheets',    '#90EE90', 'rgba(0,120,0,0.25)'],
+    saving:  ['⏳ Saving…',           '#FFD700', 'rgba(180,130,0,0.3)'],
+    offline: ['⚠️ Offline – local', '#FFB0B0', 'rgba(150,0,0,0.25)'],
+    local:   ['💾 Local mode',        '#A8BFDA', 'transparent'],
+  };
+  const [label, color, bg] = map[state] || map.local;
+  el.textContent = label;
+  el.style.color = color;
+  el.style.background = bg;
+}
+
+function showSavedBadge(msg) {
+  const b = document.getElementById('savedBadge');
+  b.textContent = msg || '✓ Saved';
+  b.classList.add('show');
+  setTimeout(() => b.classList.remove('show'), 2500);
+}
+
+// ═══════════════════════════════════════════════════════════════
+// SCORING
+// ═══════════════════════════════════════════════════════════════
+function scoreOf(status) {
+  const map = {Complete:1.0, "On Track":0.75, "At Risk":0.50, "Off Track":0.25, "Not Started":0};
+  return map[status] ?? 0;
+}
+
+// wt is stored as integer % (e.g. 30 = 30%)
+function quarterScore(okrs) {
+  const active = okrs.filter(o => o.obj && o.obj.trim());
+  if (!active.length) return null;
+  const hasWeights = active.some(o => o.wt != null && o.wt > 0);
+  if (hasWeights) {
+    let sum = 0, wtSum = 0;
+    active.forEach(o => { const w = o.wt || 0; sum += w * scoreOf(o.status); wtSum += w; });
+    return wtSum > 0 ? sum / 100 : null;  // divide by 100 since wt is 0-100
+  } else {
+    const withStatus = active.filter(o => o.status);
+    if (!withStatus.length) return null;
+    return withStatus.reduce((a,o) => a + scoreOf(o.status), 0) / withStatus.length;
+  }
+}
+
+function totalWeight(leader, q, excludeIdx) {
+  return state.leaders[leader][q].reduce((sum, o, i) => {
+    if (i === excludeIdx) return sum;
+    return sum + (o.wt || 0);
+  }, 0);
+}
+
+function fmt(s) {
+  return s === null ? '—' : Math.round(s * 100) + '%';
+}
+
+function scoreTier(s) {
+  if (s === null) return 'no-data';
+  if (s >= 0.8) return 'strong';
+  if (s >= 0.6) return 'on-track';
+  if (s >= 0.4) return 'at-risk';
+  return 'off-track';
+}
+
+// ═══════════════════════════════════════════════════════════════
+// NAV
+// ═══════════════════════════════════════════════════════════════
+function showPage(id) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('page-' + id).classList.add('active');
+  document.querySelectorAll('.nav-tab').forEach(t => {
+    if (t.getAttribute('onclick').includes("'" + id + "'")) t.classList.add('active');
+  });
+  // Resize now that the page is visible and has real dimensions
+  requestAnimationFrame(() => autoResizeAll());
+}
+
+// ═══════════════════════════════════════════════════════════════
+// LEADER PAGES
+// ═══════════════════════════════════════════════════════════════
+function buildLeaderPage(leader) {
+  const el = document.getElementById('page-leader-' + leader);
+  el.innerHTML = `
+    <div class="page-header">
+      <h1>${leader}</h1>
+      <p>OKR tracking for 2026 · Click any status to update · Notes auto-save</p>
+    </div>
+    ${['Q1','Q2','Q3','Q4'].map(q => renderQuarterSection(leader, q)).join('')}
+  `;
+}
+
+function renderQuarterSection(leader, q) {
+  const okrs = state.leaders[leader][q];
+  const sc = quarterScore(okrs);
+  const tier = scoreTier(sc);
+  const scoreColors = {
+    strong:   {bg:'#C8F0C8', color:'#1B5E20'},
+    'on-track':{bg:'#C8F0C8', color:'#2E7D32'},
+    'at-risk': {bg:'#FFE4A0', color:'#E65100'},
+    'off-track':{bg:'#FFB0B0', color:'#B71C1C'},
+    'no-data': {bg:'rgba(255,255,255,0.15)', color:'white'}
+  };
+  const sc_style = scoreColors[tier] || scoreColors['no-data'];
+
+  // Calculate total weight for display
+  const wtUsed = okrs.reduce((s, o) => s + (o.wt || 0), 0);
+  const wtClass = wtUsed > 100 ? 'weight-over' : wtUsed === 100 ? 'weight-ok' : 'weight-warn';
+  const wtHasAny = okrs.some(o => o.wt != null && o.wt > 0);
+
+  let rows = '';
+  okrs.forEach((okr, i) => {
+    const scCls = okr.status ? okr.status.replace(' ','-') : 'empty';
+    const colCount = 7;
+    rows += `
+    <tr class="data-row" id="drow-${leader}-${q}-${i}">
+      <td class="num-cell">${i+1}</td>
+      <td class="obj-cell">
+        <div class="editable-div" contenteditable="true"
+          data-placeholder="Enter objective…"
+          onblur="updateOkr('${leader}','${q}',${i},'obj',this.innerText.trim())">${esc(okr.obj)}</div>
+      </td>
+      <td class="kr-cell">
+        <textarea class="editable" oninput="autoResize(this)" onchange="updateOkr('${leader}','${q}',${i},'kr',this.value)">${esc(okr.kr)}</textarea>
+      </td>
+      <td class="wt-cell">
+        <div class="wt-wrap">
+          <input type="number" class="wt-input" min="0" max="100" step="1"
+            value="${okr.wt != null ? okr.wt : ''}"
+            placeholder="—"
+            onchange="updateWeight('${leader}','${q}',${i},this)">
+          <span class="wt-pct">%</span>
+        </div>
+      </td>
+      <td class="st-cell">
+        <select class="status-select ${scCls}" onchange="updateOkrStatus('${leader}','${q}',${i},this)">
+          ${STATUS_OPTS.map(s => `<option value="${s}"${s===okr.status?' selected':''}>${s||'— select —'}</option>`).join('')}
+        </select>
+      </td>
+      <td class="nt-cell">
+        <div class="editable-div" contenteditable="true"
+          data-placeholder="Add notes…"
+          onblur="updateOkr('${leader}','${q}',${i},'notes',this.innerText.trim())">${esc(okr.notes)}</div>
+      </td>
+      <td class="act-cell">
+        <button class="del-btn" title="Delete OKR" onclick="deleteOkr('${leader}','${q}',${i})">🗑</button>
+      </td>
+    </tr>
+    <tr class="resize-row">
+      <td colspan="${colCount}">
+        <div class="resize-grip" data-target="drow-${leader}-${q}-${i}" onmousedown="startRowResize(event, 'drow-${leader}-${q}-${i}')"></div>
+      </td>
+    </tr>`;
+  });
+
+  return `
+  <div class="quarter-section" id="qs-${leader}-${q}">
+    <div class="quarter-header">
+      <h3>${q} OKRs</h3>
+      <div class="quarter-score-box">
+        ${wtHasAny ? `
+          <span class="weight-used-label">Weights used</span>
+          <span class="weight-used-val ${wtClass}" id="wtused-${leader}-${q}">${wtUsed}%</span>
+        ` : ''}
+        <span class="quarter-score-label">Quarter Score</span>
+        <span class="quarter-score-val" id="qscore-${leader}-${q}"
+          style="background:${sc_style.bg};color:${sc_style.color}">${fmt(sc)}</span>
+        <button class="add-okr-btn" onclick="addOkr('${leader}','${q}')">+ Add OKR</button>
+      </div>
+    </div>
+    <div style="overflow-x:auto">
+      <table class="okr-table" id="tbl-${leader}-${q}">
+        <colgroup>
+          <col id="col-num-${leader}-${q}" style="width:42px">
+          <col id="col-obj-${leader}-${q}" style="width:220px">
+          <col id="col-kr-${leader}-${q}"  style="width:360px">
+          <col id="col-wt-${leader}-${q}"  style="width:90px">
+          <col id="col-st-${leader}-${q}"  style="width:136px">
+          <col id="col-nt-${leader}-${q}"  style="width:220px">
+          <col id="col-act-${leader}-${q}" style="width:44px">
+        </colgroup>
+        <thead>
+          <tr>
+            <th class="center">#</th>
+            <th>Objective<div class="col-resize" onmousedown="startColResize(event,'col-obj-${leader}-${q}')"></div></th>
+            <th>Key Results<div class="col-resize" onmousedown="startColResize(event,'col-kr-${leader}-${q}')"></div></th>
+            <th class="center">Weight<div class="col-resize" onmousedown="startColResize(event,'col-wt-${leader}-${q}')"></div></th>
+            <th class="center">Status<div class="col-resize" onmousedown="startColResize(event,'col-st-${leader}-${q}')"></div></th>
+            <th>Notes<div class="col-resize" onmousedown="startColResize(event,'col-nt-${leader}-${q}')"></div></th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody id="tbody-${leader}-${q}">${rows}</tbody>
+      </table>
+    </div>
+  </div>`;
+}
+
+function esc(s) {
+  return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+function updateOkr(leader, q, i, field, val) {
+  state.leaders[leader][q][i][field] = val;
+  persist();
+  refreshQuarterScore(leader, q);
+}
+
+function updateWeight(leader, q, i, input) {
+  const raw = input.value === '' ? null : parseInt(input.value, 10);
+  const newVal = raw === null ? null : Math.max(0, Math.min(100, raw));
+
+  // Check if adding this would exceed 100%
+  const otherSum = totalWeight(leader, q, i);
+  const proposed = (newVal || 0) + otherSum;
+
+  if (proposed > 100) {
+    const allowed = 100 - otherSum;
+    const capped = Math.max(0, allowed);
+    input.value = capped > 0 ? capped : '';
+    state.leaders[leader][q][i].wt = capped > 0 ? capped : null;
+    input.classList.add('over');
+    setTimeout(() => input.classList.remove('over'), 800);
+    // Brief flash to indicate capping
+    input.style.transition = 'background .3s';
+    input.style.background = '#FFEBEE';
+    setTimeout(() => { input.style.background = ''; }, 600);
+  } else {
+    state.leaders[leader][q][i].wt = newVal;
+    input.classList.remove('over');
+  }
+
+  persist();
+  refreshQuarterScore(leader, q);
+  refreshWeightDisplay(leader, q);
+}
+
+function refreshWeightDisplay(leader, q) {
+  const wtEl = document.getElementById(`wtused-${leader}-${q}`);
+  if (!wtEl) return;
+  const okrs = state.leaders[leader][q];
+  const wtUsed = okrs.reduce((s, o) => s + (o.wt || 0), 0);
+  wtEl.textContent = wtUsed + '%';
+  wtEl.className = 'weight-used-val ' + (wtUsed > 100 ? 'weight-over' : wtUsed === 100 ? 'weight-ok' : 'weight-warn');
+}
+
+function updateOkrStatus(leader, q, i, sel) {
+  state.leaders[leader][q][i].status = sel.value;
+  sel.className = 'status-select ' + (sel.value ? sel.value.replace(' ','-') : 'empty');
+  persist();
+  refreshQuarterScore(leader, q);
+}
+
+function refreshQuarterScore(leader, q) {
+  const sc = quarterScore(state.leaders[leader][q]);
+  const tier = scoreTier(sc);
+  const scoreColors = {
+    strong:    {bg:'#C8F0C8', color:'#1B5E20'},
+    'on-track':{bg:'#C8F0C8', color:'#2E7D32'},
+    'at-risk': {bg:'#FFE4A0', color:'#E65100'},
+    'off-track':{bg:'#FFB0B0', color:'#B71C1C'},
+    'no-data': {bg:'rgba(255,255,255,0.15)', color:'white'}
+  };
+  const style = scoreColors[tier] || scoreColors['no-data'];
+  const el = document.getElementById(`qscore-${leader}-${q}`);
+  if (!el) return;
+  el.textContent = fmt(sc);
+  el.style.background = style.bg;
+  el.style.color = style.color;
+}
+
+function addOkr(leader, q) {
+  const okrs = state.leaders[leader][q];
+  const newId = Math.max(0, ...okrs.map(o => o.id||0)) + 1;
+  okrs.push({id:newId, obj:'', kr:'', wt:null, status:'', notes:''});
+  persist();
+  rebuildSection(leader, q);
+}
+
+function deleteOkr(leader, q, i) {
+  if (!confirm('Remove this OKR?')) return;
+  state.leaders[leader][q].splice(i, 1);
+  persist();
+  rebuildSection(leader, q);
+}
+
+function rebuildSection(leader, q) {
+  const section = document.getElementById(`qs-${leader}-${q}`);
+  if (!section) return;
+  const tmp = document.createElement('div');
+  tmp.innerHTML = renderQuarterSection(leader, q);
+  section.replaceWith(tmp.firstChild);
+  requestAnimationFrame(() => autoResizeAll());
+}
+
+// ═══════════════════════════════════════════════════════════════
+// CHECK-INS
+// ═══════════════════════════════════════════════════════════════
+let formVisible = false;
+function toggleCheckinForm() {
+  formVisible = !formVisible;
+  document.getElementById('checkinFormWrap').className = formVisible ? '' : 'form-collapsed';
+  document.getElementById('toggleFormBtn').textContent = formVisible ? 'Hide Form' : 'New Check-in +';
+}
+
+function saveCheckin() {
+  const get = id => document.getElementById(id).value;
+  const entry = {
+    id:      Date.now(),
+    date:    get('ci-date'),
+    leader:  get('ci-leader'),
+    quarter: get('ci-quarter'),
+    type:    get('ci-type'),
+    status:  get('ci-status'),
+    updates: get('ci-updates'),
+    wins:    get('ci-wins'),
+    risks:   get('ci-risks'),
+    actions: get('ci-actions'),
+    owner:   get('ci-owner'),
+    due:     get('ci-due'),
+  };
+  if (!entry.date || !entry.leader) { alert('Please fill in at least Date and Leader.'); return; }
+  state.checkins.push(entry);
+  persist();
+  renderCheckinTable();
+  ['ci-updates','ci-wins','ci-risks','ci-actions','ci-owner'].forEach(id => document.getElementById(id).value = '');
+  toggleCheckinForm();
+}
+
+function deleteCheckin(id) {
+  if (!confirm('Delete this check-in?')) return;
+  state.checkins = state.checkins.filter(c => c.id !== id);
+  persist();
+  renderCheckinTable();
+}
+
+function renderCheckinTable() {
+  const tbody = document.getElementById('checkinTableBody');
+  if (!state.checkins.length) {
+    tbody.innerHTML = `<tr><td colspan="12"><div class="empty-state">No check-ins yet. Use the button above to log your first one.</div></td></tr>`;
+    return;
+  }
+  tbody.innerHTML = [...state.checkins].reverse().map(c => {
+    const cls = c.status ? c.status.replace(' ','-') : 'empty';
+    return `<tr>
+      <td style="white-space:nowrap;font-weight:600">${c.date}</td>
+      <td style="font-weight:700;color:var(--navy)">${c.leader}</td>
+      <td style="text-align:center;font-weight:700">${c.quarter}</td>
+      <td style="font-size:11px">${c.type}</td>
+      <td><span class="status-pill ${cls}">${c.status}</span></td>
+      <td style="max-width:180px;font-size:12px;white-space:pre-wrap">${esc(c.updates)}</td>
+      <td style="max-width:160px;font-size:12px;white-space:pre-wrap">${esc(c.wins)}</td>
+      <td style="max-width:160px;font-size:12px;white-space:pre-wrap">${esc(c.risks)}</td>
+      <td style="max-width:180px;font-size:12px;white-space:pre-wrap">${esc(c.actions)}</td>
+      <td style="font-size:12px">${esc(c.owner)}</td>
+      <td style="white-space:nowrap;font-size:12px">${c.due||''}</td>
+      <td><button class="del-btn" onclick="deleteCheckin(${c.id})">🗑</button></td>
+    </tr>`;
+  }).join('');
+}
+
+// ═══════════════════════════════════════════════════════════════
+// TEXTAREA AUTO-RESIZE
+// ═══════════════════════════════════════════════════════════════
+function autoResize(el) {
+  el.style.height = '0px';           // force browser to recalc scrollHeight
+  el.style.height = el.scrollHeight + 'px';
+}
+
+function autoResizeAll() {
+  // Only Key Results uses textarea now; Objective & Notes are self-sizing contenteditable divs
+  document.querySelectorAll('.page.active .kr-cell textarea.editable').forEach(el => autoResize(el));
+}
+
+// ═══════════════════════════════════════════════════════════════
+// COLUMN DRAG-TO-RESIZE
+// ═══════════════════════════════════════════════════════════════
+let _colDrag = null;
+
+function startColResize(e, colId) {
+  e.preventDefault();
+  e.stopPropagation();
+  const col    = document.getElementById(colId);
+  if (!col) return;
+  const handle = e.currentTarget;
+  handle.classList.add('active');
+
+  const startX = e.clientX;
+  const startW = col.offsetWidth || parseInt(col.style.width) || 120;
+
+  _colDrag = { col, handle, startX, startW };
+  document.body.style.cursor    = 'col-resize';
+  document.body.style.userSelect = 'none';
+
+  function onMove(ev) {
+    if (!_colDrag) return;
+    const newW = Math.max(60, _colDrag.startW + (ev.clientX - _colDrag.startX));
+    _colDrag.col.style.width = newW + 'px';
+  }
+  function onUp() {
+    if (_colDrag) _colDrag.handle.classList.remove('active');
+    document.body.style.cursor    = '';
+    document.body.style.userSelect = '';
+    _colDrag = null;
+    document.removeEventListener('mousemove', onMove);
+    document.removeEventListener('mouseup',   onUp);
+  }
+  document.addEventListener('mousemove', onMove);
+  document.addEventListener('mouseup',   onUp);
+}
+
+// ═══════════════════════════════════════════════════════════════
+// ROW DRAG-TO-RESIZE
+// ═══════════════════════════════════════════════════════════════
+let _drag = null;
+
+function startRowResize(e, rowId) {
+  e.preventDefault();
+  const row = document.getElementById(rowId);
+  if (!row) return;
+  const startY    = e.clientY;
+  const startH    = row.offsetHeight;
+
+  _drag = { row, startY, startH };
+  document.body.style.cursor = 'ns-resize';
+  document.body.style.userSelect = 'none';
+
+  function onMove(ev) {
+    if (!_drag) return;
+    const delta = ev.clientY - _drag.startY;
+    const newH  = Math.max(48, _drag.startH + delta);
+    // Only resize the Key Results textarea; Objective & Notes divs adapt naturally
+    _drag.row.querySelectorAll('.kr-cell textarea.editable').forEach(ta => {
+      ta.style.height = Math.max(32, newH - 24) + 'px';
+    });
+  }
+
+  function onUp() {
+    document.body.style.cursor = '';
+    document.body.style.userSelect = '';
+    _drag = null;
+    document.removeEventListener('mousemove', onMove);
+    document.removeEventListener('mouseup', onUp);
+  }
+
+  document.addEventListener('mousemove', onMove);
+  document.addEventListener('mouseup', onUp);
+}
+
+// ═══════════════════════════════════════════════════════════════
+// INIT
+// ═══════════════════════════════════════════════════════════════
+(async () => {
+  await loadData();
+  LEADERS.forEach(l => buildLeaderPage(l));
+  renderCheckinTable();
+  requestAnimationFrame(() => autoResizeAll());
+})();
+</script>
+</body>
+</html>
